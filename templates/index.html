@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SocketIO Client</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.5/socket.io.js" integrity="sha512-luMnTJZ7oEchNDZAtQhgjomP1eZefnl82ruTH/3Oj/Yu5qYtwL7+dVRccACS/Snp1lFXq188XFipHKYE75IaQQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var socket = io.connect('');
+
+            socket.on('message', (data) => {
+                console.log('Received message from server:', data);
+                document.getElementById('result').innerText = 'Result: ' + data;
+            });
+
+            document.getElementById('sendButton').addEventListener('click', function() {
+                var inputValue = parseInt(document.getElementById('inputValue').value);
+                socket.emit('message', inputValue);
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>SocketIO Client</h1>
+    <input type="number" id="inputValue" placeholder="Enter a number">
+    <button id="sendButton">Send</button>
+    <p id="result"></p>
+</body>
+</html>
