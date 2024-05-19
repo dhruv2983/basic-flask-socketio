@@ -18,6 +18,12 @@
                 document.getElementById('status').innerText = 'Disconnected';
             });
 
+            socket.on("connect_error", (err) => {
+                console.log(err.message);
+                console.log(err.description);
+                console.log(err.context);
+            });
+
             socket.on('message', (data) => {
                 console.log('Received message from server:', data);
                 document.getElementById('result').innerText = 'Result: ' + data;

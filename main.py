@@ -5,7 +5,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 socketio = SocketIO(app)
 
-CORS(app, resources={r"/*": {"origins": "*"}})
+CORS(app, resources={r"/": {"origins": "*"}})
 
 
 @app.route("/")
@@ -15,7 +15,10 @@ def index():
 
 @socketio.on("message")
 def handle_message(data):
-    emit("message", data + 5)
+    try:
+        emit("message", data + 5)
+    except Exception as e:
+        print(f"Error handling message: {e}")
 
 
 if __name__ == "__main__":
