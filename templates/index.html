@@ -8,6 +8,16 @@
         document.addEventListener("DOMContentLoaded", function() {
             var socket = io.connect('');
 
+            socket.on('connect', function() {
+                console.log('Connected to server');
+                document.getElementById('status').innerText = 'Connected';
+            });
+
+            socket.on('disconnect', function() {
+                console.log('Disconnected from server');
+                document.getElementById('status').innerText = 'Disconnected';
+            });
+
             socket.on('message', (data) => {
                 console.log('Received message from server:', data);
                 document.getElementById('result').innerText = 'Result: ' + data;
@@ -22,6 +32,8 @@
 </head>
 <body>
     <h1>SocketIO Client</h1>
+    <h2>Socket status: <span id="status">Disconnected</span></h2>
+    <p>Enter a number and click the button to send it to the server</p>
     <input type="number" id="inputValue" placeholder="Enter a number">
     <button id="sendButton">Send</button>
     <p id="result"></p>
